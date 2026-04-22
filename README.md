@@ -1,33 +1,53 @@
-# Inventory-optimization# Inventory Optimization DSS (Lotto Economico e Punto di Riordino)
+Inventory Optimization DSS (Lotto Economico e Punto di Riordino)
+Descrizione
+Questo software è un Decision Support System (DSS) sviluppato in Python per supportare le Piccole e Medie Imprese (PMI) nell'ottimizzazione della gestione dei materiali a domanda indipendente. L'obiettivo principale è minimizzare i costi di inventario gestendo al contempo l'incertezza legata alla variabilità della domanda e ai tempi di approvvigionamento.
 
-## Descrizione
-[cite_start]Questo software è un **Decision Support System (DSS)** sviluppato in Python per aiutare le Piccole e Medie Imprese (PMI) a ottimizzare la gestione delle scorte di magazzino[cite: 1, 2]. [cite_start]L'applicativo automatizza il calcolo della quantità ottimale d'ordine e del momento giusto per effettuarlo, riducendo i costi di stoccaggio e il rischio di stock-out[cite: 2].
+Il software automatizza processi che spesso nelle aziende vengono gestiti in modo manuale, riducendo drasticamente il rischio di errore umano.
 
-[cite_start]Il progetto nasce dall'esigenza di superare i limiti dei classici fogli di calcolo, spesso soggetti a errori umani e privi di una struttura dati solida[cite: 2].
+Funzionalità Chiave
 
-## Caratteristiche Principali
-* [cite_start]**Calcolo EOQ (Economic Order Quantity):** Implementazione del modello di Wilson per minimizzare la somma dei costi di ordinazione e mantenimento[cite: 2].
-* [cite_start]**Calcolo ROP (Reorder Point):** Determinazione della soglia di riordino integrando il Lead Time e la Scorta di Sicurezza[cite: 2].
-* [cite_start]**Gestione Storica Multiannuale:** Struttura dati nidificata che permette di confrontare le rilevazioni per anno per ogni singolo articolo[cite: 2].
-* [cite_start]**Persistenza Dati Leggera:** Utilizzo del formato JSON per l'archiviazione, garantendo portabilità totale senza necessità di server database complessi[cite: 1, 2].
-* [cite_start]**Interfaccia Grafica (GUI):** Sviluppata con la libreria Tkinter per garantire un'esperienza utente intuitiva e immediata[cite: 2].
-* [cite_start]**Export Report:** Generazione automatica di report tabellari professionali in formato testo (.txt) con timestamp univoci[cite: 2].
+Calcolo del Lotto Economico (EOQ): Implementazione dell'algoritmo basato sul Modello di Wilson per determinare la quantità ottimale di riordino.
 
-## Stack Tecnologico
-* [cite_start]**Linguaggio:** Python 3.x 
-* [cite_start]**Interfaccia Grafica:** Tkinter 
-* [cite_start]**Formato Dati:** JSON (JavaScript Object Notation) 
-* [cite_start]**Librerie Utility:** * `prettytable` (per la formattazione dei report) [cite: 2]
-  * [cite_start]`math` (per il core dei calcoli matematici) [cite: 2]
+Calcolo del Punto di Riordino (ROP): Determinazione del livello di scorta che deve far scattare un nuovo ordine, integrando il Lead Time e la Scorta di Sicurezza.
 
-## Modello Matematico Implementato
-[cite_start]Il software automatizza le seguenti formule della ricerca operativa[cite: 2]:
-* **Lotto Economico (EOQ):** $\sqrt{\frac{2 \cdot Domanda \cdot CostoOrdine}{CostoMantenimento}}$
-* **Punto di Riordino (ROP):** $(DomandaGiornaliera \cdot LeadTime) + ScortaSicurezza$
+Gestione Storica Multiannuale: Grazie a una struttura dati a dizionari nidificati, il software permette la storicizzazione e il confronto delle proiezioni per diversi periodi fiscali.
 
-## Come avviare l'applicazione
-1. Assicurati di avere Python installato sul tuo sistema.
-2. Installa la libreria necessaria per i report:
-   ```bash
-   pip install prettytableDSS
-Decision Support System in Python for Economic Order Quantity (EOQ) and Reorder Point (ROP) calculation
+Database In-Memory e Persistenza: Utilizzo di un'architettura "In-Memory" per tempi di risposta istantanei, con salvataggio permanente in formato JSON per garantire portabilità e leggerezza.
+
+Validazione Rigorosa: Routine di controllo degli input per assicurare che i dati inseriti (costi, domanda, tempi) siano matematicamente coerenti.
+
+Reporting Professionale: Generazione di report tabellari con calcolo delle medie ponderate, esportabili in file di testo con timestamp univoci.
+
+Stack Tecnologico
+
+Linguaggio: Python.
+
+Interfaccia Grafica (GUI): Tkinter.
+
+Persistenza Dati: JSON (JavaScript Object Notation).
+
+Librerie:math: Per il calcolo della radice quadrata necessaria alla formula EOQ.
+
+prettytable: Per la formattazione professionale delle tabelle di output.
+
+os e sys: Per la gestione dell'ambiente di esecuzione e del file system.
+
+Modello MatematicoL'applicativo implementa le seguenti basi teoriche della logica industriale:
+
+EOQ (Wilson): $\sqrt{\frac{2 \cdot D \cdot S}{H}}$ (D=domanda annua, S=costo ordine, H=costo mantenimento).
+
+ROP: $(d \cdot L) + SS$ (d=domanda giornaliera, L=lead time, SS=scorta di sicurezza).
+
+Installazione e Utilizzo
+
+Assicurati di avere installato Python e la libreria prettytable:
+
+pip install prettytable
+
+Esegui l'applicazione:
+
+python LottoEconomicoRop.py
+
+Sviluppato da: Alessandro Avallone
+
+Project Work per il Corso di Laurea in Informatica per le Aziende Digitali (L-31) - Università Telematica Pegaso
