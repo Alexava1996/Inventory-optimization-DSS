@@ -1,0 +1,78 @@
+{
+    "IPH": {
+        "Nome_Articolo": "iPhone",
+        "Anni": {
+            "2025": {
+                "domanda_annuale": 5950,
+                "domanda_media_mese": 495.83,
+                "domanda_giornaliera": 16.3,
+                "costo_ordine": 200.0,
+                "costo_mantenimento": 210.0,
+                "lead_time_giorni": 30,
+                "scorta_sicurezza": 489,
+                "eoq": 106.46,
+                "punto_riordino": 978.04
+            },
+            "2026": {
+                "domanda_annuale": 6100,
+                "domanda_media_mese": 508.33,
+                "domanda_giornaliera": 16.71,
+                "costo_ordine": 200.0,
+                "costo_mantenimento": 210.0,
+                "lead_time_giorni": 30,
+                "scorta_sicurezza": 501,
+                "eoq": 107.79,
+                "punto_riordino": 1002.37
+            },
+            "2027": {
+                "domanda_annuale": 6350,
+                "domanda_media_mese": 529.17,
+                "domanda_giornaliera": 17.4,
+                "costo_ordine": 210.0,
+                "costo_mantenimento": 220.0,
+                "lead_time_giorni": 30,
+                "scorta_sicurezza": 522,
+                "eoq": 110.1,
+                "punto_riordino": 1043.92
+            }
+        }
+    },
+    "COVIPH": {
+        "Nome_Articolo": "Cover iPhone",
+        "Anni": {
+            "2025": {
+                "domanda_annuale": 6000,
+                "domanda_media_mese": 500.0,
+                "domanda_giornaliera": 16.44,
+                "costo_ordine": 60.0,
+                "costo_mantenimento": 0.6,
+                "lead_time_giorni": 15,
+                "scorta_sicurezza": 247,
+                "eoq": 1095.45,
+                "punto_riordino": 493.58
+            },
+            "2026": {
+                "domanda_annuale": 6200,
+                "domanda_media_mese": 516.67,
+                "domanda_giornaliera": 16.99,
+                "costo_ordine": 63.0,
+                "costo_mantenimento": 0.6,
+                "lead_time_giorni": 15,
+                "scorta_sicurezza": 255,
+                "eoq": 1141.05,
+                "punto_riordino": 509.79
+            },
+            "2027": {
+                "domanda_annuale": 6380,
+                "domanda_media_mese": 531.67,
+                "domanda_giornaliera": 17.48,
+                "costo_ordine": 58.0,
+                "costo_mantenimento": 0.65,
+                "lead_time_giorni": 15,
+                "scorta_sicurezza": 262,
+                "eoq": 1067.04,
+                "punto_riordino": 524.19
+            }
+        }
+    }
+}
