@@ -55,7 +55,7 @@ Questa procedura crea un server pubblico solo quando la esegui tu. Per la config
 5. Caddy ottiene il certificato HTTPS per il dominio configurato e inoltra al frontend. Il database e l'API restano nella rete interna; la porta locale 3000 ascolta su 127.0.0.1.
 6. Esegui la CLI di creazione account, controlla `/api/health` e prova login, importazione, un movimento e un export con dati di prova.
 
-L'esempio non è stato eseguito in Docker nell'ambiente di lavoro: Docker non era installato. Verifica il Compose e prova un ripristino in un ambiente di staging prima dell'uso reale.
+Docker non era installato sul Mac di lavoro. Su GitHub sono riuscite la validazione del Compose e la costruzione delle immagini; non è stato avviato uno stack operativo completo. Prova l'avvio e un ripristino in un ambiente di staging prima dell'uso reale.
 
 ## 5. Backup e ripristino
 
