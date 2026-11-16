@@ -69,6 +69,8 @@ jobs:
           cd frontend
           npm run test:e2e
       - name: Validate production container builds
+        env:
+          POSTGRES_PASSWORD: ci-disposable-database
         run: |
           POSTGRES_PASSWORD=ci-disposable-database docker compose config --quiet
           docker compose build
