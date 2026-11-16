@@ -1,0 +1,73 @@
+name: Verify inventory platform
+on:
+  push:
+    branches: [main, 'codex/**']
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: inventory_test
+          POSTGRES_USER: inventory
+          POSTGRES_PASSWORD: ci-disposable-database
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd 'pg_isready -U inventory -d inventory_test'
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql+psycopg://inventory:ci-disposable-database@127.0.0.1:5432/inventory_test
+      TEST_DATABASE_URL: postgresql+psycopg://inventory:ci-disposable-database@127.0.0.1:5432/inventory_test
+      APP_ENV: test
+      APP_ORIGIN: http://localhost:3000
+      E2E_EMAIL: e2e@example.test
+      E2E_PASSWORD: ci-only-disposable-passphrase
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12', cache: pip, cache-dependency-path: backend/requirements.lock }
+      - uses: actions/setup-node@v4
+        with: { node-version: '24', cache: npm, cache-dependency-path: frontend/package-lock.json }
+      - run: pip install -r backend/requirements.lock
+      - run: ruff check backend/app backend/tests backend/migrations
+      - name: Migrations and PostgreSQL access protection
+        working-directory: backend
+        run: |
+          python -c "from app.db import engine; from sqlalchemy import text; c=engine.connect(); c.execute(text('CREATE ROLE anon NOLOGIN')); c.execute(text('CREATE ROLE authenticated NOLOGIN')); c.commit(); c.close()"
+          alembic upgrade head
+          alembic check
+          PYTHONPATH=. python ../scripts/check_postgres.py
+      - run: pytest -q
+        working-directory: backend
+      - name: Restore migrated schema and prepare disposable UI account
+        working-directory: backend
+        run: |
+          python -c "from app.db import engine; from sqlalchemy import text; c=engine.connect(); c.execute(text('DROP TABLE alembic_version')); c.commit(); c.close()"
+          alembic upgrade head
+          PYTHONPATH=. python ../scripts/prepare_e2e.py
+      - run: npm ci
+        working-directory: frontend
+      - run: npm audit --omit=dev
+        working-directory: frontend
+      - run: npm run build
+        working-directory: frontend
+      - run: npx playwright install --with-deps chromium
+        working-directory: frontend
+      - name: Start services and test desktop and mobile
+        run: |
+          (cd backend && uvicorn app.main:app --host 127.0.0.1 --port 8000 --no-proxy-headers > /tmp/api.log 2>&1) &
+          (cd frontend && npm run start > /tmp/web.log 2>&1) &
+          for attempt in $(seq 1 45); do curl -fsS http://localhost:3000/api/health && break; sleep 1; done
+          cd frontend
+          npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-results
+          path: |
+            frontend/test-results
