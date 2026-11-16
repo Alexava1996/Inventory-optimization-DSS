@@ -68,6 +68,10 @@ jobs:
           for attempt in $(seq 1 45); do curl -fsS http://localhost:3000/api/health && break; sleep 1; done
           cd frontend
           npm run test:e2e
+      - name: Validate production container builds
+        run: |
+          POSTGRES_PASSWORD=ci-disposable-database docker compose config --quiet
+          docker compose build
       - uses: actions/upload-artifact@v4
         if: always()
         with:

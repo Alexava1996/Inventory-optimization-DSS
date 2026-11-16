@@ -93,7 +93,7 @@ test("create forecast, move stock, simulate, archive and restore", async ({
   await expect(dialog).toContainText("Ricevimento test");
   await page.keyboard.press("Escape");
   await expect(dialog).not.toBeVisible();
-  await page.getByLabel("Simulazione stagionale").fill("2");
+  await page.getByLabel("Simulazione stagionale").press("End");
   await expect(row).toContainText("Da riordinare");
   await row.getByRole("button", { name: "Archivia Caffè in grani" }).click();
   await page.getByRole("button", { name: "Conferma archiviazione" }).click();

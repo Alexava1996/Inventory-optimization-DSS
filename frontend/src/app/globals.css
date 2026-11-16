@@ -1,6 +1,6 @@
 :root {
   --ink: #193932;
-  --muted: #69766f;
+  --muted: #59685f;
   --green: #21634f;
   --green-dark: #174e3e;
   --line: #e1e6df;
@@ -209,7 +209,7 @@ svg {
   gap: 9px;
 }
 .brand-dot {
-  color: #8a9c5e;
+  color: #637b37;
   margin-left: -8px;
 }
 .brand-icon {
@@ -684,7 +684,7 @@ svg {
 .action-footnote {
   display: block;
   font-size: 8px;
-  color: #65795f;
+  color: #4b6344;
   margin-top: 14px;
 }
 .action-panel.has-alerts {
